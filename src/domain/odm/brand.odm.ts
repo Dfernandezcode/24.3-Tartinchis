@@ -26,8 +26,8 @@ const createBrand = async (brandData: any): Promise<Document<IBrand>> => {
   return document;
 };
 
-const deleteBrand = async (id: string): Promise<Document<nd> | null> => {
-  return await Brand.findByIdAndDelete(id); IBra
+const deleteBrand = async (id: string): Promise<Document<IBrand> | null> => {
+  return await Brand.findByIdAndDelete(id);
 };
 
 const updateBrand = async (id: string, brandData: any): Promise<Document<IBrand> | null> => {
