@@ -1,55 +1,33 @@
-// Comentario de una linea
-
-/*
-  Comentario de
-  Varias lineas
-*/
-
-/**
- * Hola
- *
- * Este es un comentario de JSDoc
- * Sirve para hacer documentación
- *
- */
-
 /**
  * @swagger
  * components:
  *  schemas:
- *    Brand:
+ *    Category:
  *      type: object
  *      required:
  *        - name
  *      properties:
  *        name:
  *          type: string
- *          description: Name of the brand (sample Ford)
- *        creationYear:
- *          type: number
- *          description: Year when brand was created (sample 1990)
- *        country:
+ *          description: Name of the category (sample Favoritas de Fran)
+ *        cakes:
  *          type: string
- *          description: Country of this Brand (sample SPAIN)
- *        logoImage:
+ *          description: types of cakes for this category
+ *        description:
  *          type: string
- *          description: Logo of this brand (sample http://balbblabla.com/image.jpg)
+ *          description: description of this category (sample Reinventamos la clasíca tarta de mousse de chocolatecon galleta)
  */
 
-import mongoose from "mongoose";
+import mongoose, { type ObjectId } from "mongoose";
 const Schema = mongoose.Schema;
 
-const allowedCountries: string[] = ["SPAIN", "ITALY", "USA", "GERMANY", "JAPAN", "FRANCE"];
-const currentYear: number = new Date().getFullYear();
-
-export interface IBrand {
+export interface ICategory {
   name: string;
-  creationYear: number;
-  country: string;
-  logoImage: string;
+  cakes: ObjectId;
+  description: string;
 }
 
-const brandSchema = new Schema<IBrand>(
+const categorySchema = new Schema<ICategory>(
   {
     name: {
       type: String,
@@ -58,22 +36,17 @@ const brandSchema = new Schema<IBrand>(
       maxLength: 20,
       trim: true,
     },
-    creationYear: {
-      type: Number,
-      required: false,
-      min: [1803, "No mientas porque la marca de coches más antigua es Peugeot y se creó en 1803"],
-      max: currentYear,
+    cakes: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Cake",
     },
-    country: {
+    description: {
       type: String,
-      required: false,
-      enum: allowedCountries,
-      uppercase: true,
+      required: true,
+      minLength: [10, "Hijo mío... dame algo más de detalle, al menos 10 letras para la descripción"],
+      maxLength: 250,
       trim: true,
-    },
-    logoImage: {
-      type: String,
-      required: false,
     },
   },
   {
@@ -81,4 +54,4 @@ const brandSchema = new Schema<IBrand>(
   }
 );
 
-export const Brand = mongoose.model<IBrand>("Brand", brandSchema);
+export const Category = mongoose.model<ICategory>("Category", categorySchema);
