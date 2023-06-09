@@ -7,16 +7,9 @@ import { app } from "../src/server";
 
 describe("User controller", () => {
   const userMock: IUser = {
-    email: "fran@mail.com",
+    email: "dani@mail.com",
     password: "12345678",
-    firstName: "Fran",
-    lastName: "Linde",
-    phone: "666555444",
-    address: {
-      street: "Calle Falsa",
-      number: 123,
-      city: "Madrid",
-    },
+    fullName: "Daniel Fernandez",
   };
 
   let token: string;
@@ -87,20 +80,19 @@ describe("User controller", () => {
 
   it("PUT /user/id - Modify user when token is sent", async () => {
     const updatedData = {
-      firstName: "Edu",
-      lastName: "Cuadrado",
+      fullName: "Diego Mompo",
     };
 
     const response = await request(app).put(`/user/${userId}`).set("Authorization", `Bearer ${token}`).send(updatedData).expect(200);
 
-    expect(response.body.firstName).toBe(updatedData.firstName);
+    expect(response.body.fullName).toBe(updatedData.fullName);
     expect(response.body.email).toBe(userMock.email);
     expect(response.body._id).toBe(userId);
   });
 
   it("PUT /user/id - Should not modify user when no token present", async () => {
     const updatedData = {
-      lastName: "Cuadrado",
+      fullName: "Edu Cuadrado",
     };
 
     const response = await request(app).put(`/user/${userId}`).send(updatedData).expect(401);

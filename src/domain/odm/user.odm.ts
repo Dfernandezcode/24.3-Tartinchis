@@ -16,12 +16,12 @@ const getUserById = async (id: string): Promise<Document<IUser> | null> => {
 };
 
 const getUserByEmailWithPassword = async (email: string): Promise<Document<IUser> | null> => {
-  const user: Document<IUser> | null = await User.findOne({ email }).select("+password") as any;
+  const user: Document<IUser> | null = (await User.findOne({ email }).select("+password")) as any;
   return user;
 };
 
 const getUserByName = async (name: string): Promise<Document<IUser>[]> => {
-  return await User.find({ firstName: new RegExp("^" + name.toLowerCase(), "i") });
+  return await User.find({ fullName: new RegExp("^" + name.toLowerCase(), "i") });
 };
 
 const createUser = async (userData: any): Promise<Document<IUser>> => {
