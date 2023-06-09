@@ -2,7 +2,6 @@ import bcrypt from "bcrypt";
 import { type Request, type Response, type NextFunction } from "express";
 import { generateToken } from "../../utils/token";
 import { userOdm } from "../odm/user.odm";
-import { Car } from "../entities/car-entity";
 
 export const getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -35,12 +34,6 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
 
     if (user) {
       const temporalUser = user.toObject();
-      const includeCars = req.query.includeCars === "true";
-      if (includeCars) {
-        const cars = await Car.find({ owner: id });
-        temporalUser.cars = cars;
-      }
-
       res.json(temporalUser);
     } else {
       res.status(404).json({});
@@ -124,7 +117,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.status(400).json({ error: "Se deben especificar los campos email y password" });
+      res.status(400).json({ error: "Se deben especificake los campos email y password" });
       return;
     }
 
