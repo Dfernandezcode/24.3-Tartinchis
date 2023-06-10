@@ -5,10 +5,12 @@ import { userService } from "../domain/services/user.service";
 // Router propio de usuarios
 export const userRouter = express.Router();
 
-userRouter.get("/", userService.getUsers);
-userRouter.get("/:id", userService.getUserById);
-userRouter.get("/name/:name", userService.getUserByName);
+userRouter.get("/", isAuth, userService.getUsers);
+userRouter.get("/:id", isAuth, userService.getUserById);
+userRouter.get("/name/:name", isAuth, userService.getUserByName);
 userRouter.post("/", userService.createUser);
 userRouter.delete("/:id", isAuth, userService.deleteUser);
 userRouter.put("/:id", isAuth, userService.updateUser);
 userRouter.post("/login", userService.login);
+
+// only for admin

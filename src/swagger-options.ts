@@ -4,7 +4,7 @@ export const swaggerOptions: SwaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Node S15",
+      title: "Tortinchis",
       version: "1.0.0",
       description: "This is a simple CRUD API",
       license: {
@@ -12,18 +12,16 @@ export const swaggerOptions: SwaggerOptions = {
         url: "http://mit.com",
       },
       contact: {
-        name: "Fran Linde",
-        url: "https://github.com/franlidebl",
-        email: "fran@example.com"
-      }
+        name: "Daniel Fernandez",
+        url: "https://github.com/dfernandezcode",
+        email: "dfernandez@example.com",
+      },
     },
     server: [
       {
-        url: "http://localhost:3000"
-      }
-    ]
+        url: "http://localhost:3000",
+      },
+    ],
   },
-  apis: [
-    "./src/**/*.ts",
-  ]
+  apis: ["./src/**/*.ts"],
 };
