@@ -1,3 +1,42 @@
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Category:
+ *      type: object
+ *      required:
+ *        - name
+ *     properties:
+      name:
+        type: string
+        minLength: 3
+        maxLength: 50
+        example: Muerte por chocolate
+      ingredients:
+        type: array
+        items:
+          type: string
+        example: ["Harina", "Huevo", "Chocolate blanco", "Chocolate negro", "Leche"]
+      allergens:
+        type: array
+        items:
+          type: string
+        example: ["Gluten", "Leche"]
+      description:
+        type: string
+        maxLength: 500
+        example: Tarta con tres tipos de chocolate
+      price:
+        type: number
+        example: 25
+    required:
+      - name
+      - ingredients
+      - allergens
+      - description
+      - price
+ */
+
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
