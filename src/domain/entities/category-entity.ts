@@ -19,6 +19,7 @@
  */
 
 import mongoose, { type ObjectId } from "mongoose";
+import { Cake } from "./cake-entity";
 const Schema = mongoose.Schema;
 
 export interface ICategory {
@@ -37,9 +38,9 @@ const categorySchema = new Schema<ICategory>(
       trim: true,
     },
     cakes: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       required: true,
-      ref: "Cake",
+      ref: Cake,
     },
     description: {
       type: String,

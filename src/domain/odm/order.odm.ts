@@ -17,6 +17,11 @@ const getOrderById = async (id: string): Promise<Document<IOrder> | null> => {
     .populate(["cake"]);
 };
 
+const getOrdersByStatus = async (name: string): Promise<Document<IOrder>[]> => {
+  return await Order.find({ status: new RegExp("^" + name.toLowerCase(), "i") })
+    .populate(["cake"]);
+};
+
 const createOrder = async (orderData: any): Promise<Document<IOrder>> => {
   const order = new Order(orderData);
   const document: Document<IOrder> = (await order.save()) as any;
@@ -32,10 +37,11 @@ const updateOrder = async (id: string, orderData: any): Promise<Document<IOrder>
   return await Order.findByIdAndUpdate(id, orderData, { new: true, runValidators: true });
 };
 
-export const carOdm = {
+export const orderOdm = {
   getAllOrders,
   getOrdersCount,
   getOrderById,
+  getOrdersByStatus,
   createOrder,
   deleteOrder,
   updateOrder

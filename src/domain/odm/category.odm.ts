@@ -1,11 +1,11 @@
-import { Category, ICategory } from "../entities/category";
+import { Category, ICategory } from "../entities/category-entity";
 import { Document } from "mongoose";
 
 const getAllCategory = async (page: number, limit: number): Promise<Document<ICategory>[]> => {
   return await Category.find()
     .limit(limit)
     .skip((page - 1) * limit)
-    .populate(["cake"]);
+    .populate(["cakes"]);
 };
 
 const getCategoryCount = async (): Promise<number> => {
@@ -13,7 +13,7 @@ const getCategoryCount = async (): Promise<number> => {
 };
 
 const getCategoryById = async (id: string): Promise<Document<ICategory> | null> => {
-  return await Category.findById(id).populate(["cake"]);
+  return await Category.findById(id).populate("cakes");
 };
 
 const createCategory = async (categoryData: any): Promise<Document<ICategory>> => {
