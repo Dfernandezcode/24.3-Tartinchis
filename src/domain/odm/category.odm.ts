@@ -16,6 +16,10 @@ const getCategoryById = async (id: string): Promise<Document<ICategory> | null> 
   return await Category.findById(id).populate("cakes");
 };
 
+const getCategoryByName = async (name: string): Promise<Document<ICategory>[]> => {
+  return await Category.find({ name: new RegExp("^" + name.toLowerCase(), "i") });
+};
+
 const createCategory = async (categoryData: any): Promise<Document<ICategory>> => {
   const category = new Category(categoryData);
   const document: Document<ICategory> = (await category.save()) as any;
@@ -34,6 +38,7 @@ const updateCategory = async (id: string, categoryData: any): Promise<Document<I
 export const categoryOdm = {
   getAllCategory,
   getCategoryCount,
+  getCategoryByName,
   getCategoryById,
   createCategory,
   deleteCategory,

@@ -55,6 +55,35 @@ categoryRouter.get("/", categoryService.getAllCategory);
 
 /**
  * @swagger
+ * /category/name/{name}:
+ *   get:
+ *     summary: Get a category by name
+ *     tags: [Category]
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The category name
+ *     responses:
+ *       200:
+ *         description: The category info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Category'
+ *       404:
+ *         description: Category not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+categoryRouter.get("/name/:name", categoryService.getCategoryByName);
+
+/**
+ * @swagger
  * /category/{id}:
  *   get:
  *     summary: Get a category by ID
