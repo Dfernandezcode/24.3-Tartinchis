@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 export interface ICake {
   name: string;
-  ingredient: [];
+  ingredients: [];
   allergens: [];
   description: string;
   price: number;
@@ -17,7 +17,7 @@ const cakeSchema = new Schema<ICake>({
     maxLength: [50, "The name must contain maximun 50 characters"],
     trim: true,
   },
-  ingredient: {
+  ingredients: {
     type: [],
     required: true,
     trim: true
@@ -30,7 +30,7 @@ const cakeSchema = new Schema<ICake>({
   description: {
     type: String,
     required: true,
-    maxLength: [200, "The name must contain maximun 200 characters"],
+    maxLength: [500, "The name must contain maximun 200 characters"],
     trim: true
   },
   price: {
