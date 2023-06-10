@@ -4,6 +4,9 @@ import { swaggerOptions } from "../swagger-options";
 import express, { type NextFunction, type Response, type Request, type ErrorRequestHandler } from "express";
 import { mongoConnect } from "../domain/repositories/mongo-repository";
 import { userRouter } from "./user.routes";
+import { cakeRouter } from "./cake.routes";
+import { orderRouter } from "./order.routes";
+import { categoryRouter } from "./category.routes";
 
 export const configureRoutes = (app: any): any => {
   // Swagger
@@ -29,6 +32,9 @@ export const configureRoutes = (app: any): any => {
 
   // Usamos las rutas
   app.use("/user", userRouter);
+  app.use("/cake", cakeRouter)
+  app.use("/order", orderRouter);
+  app.use("/category", categoryRouter);
   app.use("/public", express.static("public"));
   app.use("/", router);
 
