@@ -6,6 +6,7 @@ import { mongoConnect } from "../domain/repositories/mongo-repository";
 import { userRouter } from "./user.routes";
 import { carRouter } from "./car.routes";
 import { brandRouter } from "./brand.routes";
+import { cakeRouter } from "./cake.routes";
 
 export const configureRoutes = (app: any): any => {
   // Swagger
@@ -33,6 +34,7 @@ export const configureRoutes = (app: any): any => {
   app.use("/user", userRouter);
   app.use("/car", carRouter);
   app.use("/brand", brandRouter);
+  app.use("/cake", cakeRouter)
   app.use("/public", express.static("public"));
   app.use("/", router);
 
