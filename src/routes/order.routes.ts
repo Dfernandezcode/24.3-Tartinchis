@@ -138,7 +138,7 @@ orderRouter.get("/:status", isAuth, orderService.getOrdersByStatus);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-orderRouter.post("/", isAuth, orderService.createOrder);
+orderRouter.post("/", orderService.createOrder);
 
 /**
  * @swagger
