@@ -14,7 +14,7 @@ export const orderRouter = express.Router();
  * @swagger
  * /order:
  *   get:
- *     summary: Lists all the orders
+ *     summary: Lists all the orders.
  *     tags: [Order]
  *     parameters:
  *       - in: query
@@ -138,7 +138,7 @@ orderRouter.get("/:status", isAuth, orderService.getOrdersByStatus);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-orderRouter.post("/", isAuth, orderService.createOrder);
+orderRouter.post("/", orderService.createOrder);
 
 /**
  * @swagger
