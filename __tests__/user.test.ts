@@ -68,7 +68,7 @@ describe("User controller", () => {
   });
 
   it("GET /user - returns a list with the users", async () => {
-    const response = await request(app).get("/user").expect(200);
+    const response = await request(app).get("/user").set("Authorization", `Bearer ${token}`).expect(200);
 
     expect(response.body.data).toBeDefined();
     expect(response.body.data.length).toBe(1);

@@ -3,12 +3,16 @@ import { type Request, type Response, type NextFunction } from "express";
 import { generateToken } from "../../utils/token";
 import { userOdm } from "../odm/user.odm";
 
-export const getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getUsers = async (req: any, res: Response, next: NextFunction): Promise<void> => {
   try {
+    if (req.user.email !== "admin@gmail.com") {
+      res.status(401).json({ error: "No tienes autorización para realizar esta operación" });
+      return;
+    }
+
     // Ternario que se queda con el parametro si llega
     const page = req.query.page ? parseInt(req.query.page as string) : 1;
     const limit = req.query.limit ? parseInt(req.query.limit as string) : 10;
-
     const users = await userOdm.getAllUsers(page, limit);
 
     // Num total de elementos
@@ -27,9 +31,14 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction):
   }
 };
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getUserById = async (req: any, res: Response, next: NextFunction): Promise<void> => {
   try {
     const id = req.params.id;
+
+    if (req.user.id !== id && req.user.email !== "admin@gmail.com") {
+      res.status(401).json({ error: "No tienes autorización para realizar esta operación" });
+      return;
+    }
     const user = await userOdm.getUserById(id);
 
     if (user) {
@@ -43,10 +52,15 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
   }
 };
 
-export const getUserByName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getUserByName = async (req: any, res: Response, next: NextFunction): Promise<void> => {
   const name = req.params.name;
 
   try {
+    if (req.user.email !== "admin@gmail.com") {
+      res.status(401).json({ error: "No tienes autorización para realizar esta operación" });
+      return;
+    }
+
     const user = await userOdm.getUserByName(name);
     if (user?.length) {
       res.json(user);
