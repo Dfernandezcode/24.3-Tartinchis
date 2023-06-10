@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 export interface ICake {
   name: string;
-  ingredients: [];
-  allergens: [];
+  ingredients: string [];
+  allergens: string [];
   description: string;
   price: number;
 }
