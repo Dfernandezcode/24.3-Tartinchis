@@ -25,6 +25,21 @@ const getAllCategory = async (req: Request, res: Response, next: NextFunction): 
   }
 };
 
+export const getCategoryByName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const name = req.params.name;
+
+  try {
+    const category = await categoryOdm.getCategoryByName(name);
+    if (category?.length) {
+      res.json(category);
+    } else {
+      res.status(404).json([]);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getCategoryById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const id = req.params.id;
@@ -79,6 +94,7 @@ const updateCategory = async (req: Request, res: Response, next: NextFunction): 
 
 export const categoryService = {
   getAllCategory,
+  getCategoryByName,
   getCategoryById,
   createCategory,
   deleteCategory,
