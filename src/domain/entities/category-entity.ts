@@ -38,7 +38,7 @@ const categorySchema = new Schema<ICategory>(
       trim: true,
     },
     cakes: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       required: true,
       ref: Cake,
     },
