@@ -1,34 +1,35 @@
 /**
  * @swagger
  * tags:
- *   name: Car
- *   description: The cars managing API
+ *   name: Order
+ *   description: Orders managing API
  */
 import express from "express";
-import { carService } from "../domain/services/car.service";
+import { orderService } from "../domain/services/order.service";
+import { isAuth } from "../utils/auth.middleware";
 
-export const carRouter = express.Router();
+export const orderRouter = express.Router();
 
 /**
  * @swagger
- * /car:
+ * /order:
  *   get:
- *     summary: Lists all the cars
- *     tags: [Car]
+ *     summary: Lists all the orders
+ *     tags: [Order]
  *     parameters:
  *       - in: query
  *         name: page
  *         schema:
  *           type: integer
- *         description: The page number
+ *         description: Page number
  *       - in: query
  *         name: limit
  *         schema:
  *           type: integer
- *         description: The number of items to return
+ *         description: Number of items to return
  *     responses:
  *       200:
- *         description: The list of the cars
+ *         description: List of the orders
  *         content:
  *           application/json:
  *             schema:
@@ -37,7 +38,7 @@ export const carRouter = express.Router();
  *                 data:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Car'
+ *                     $ref: '#/components/schemas/Order'
  *                 totalItems:
  *                   type: integer
  *                 totalPages:
@@ -51,56 +52,85 @@ export const carRouter = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-carRouter.get("/", carService.getAllCars);
+orderRouter.get("/", isAuth, orderService.getAllOrders);
 
 /**
  * @swagger
- * /car/{id}:
+ * /order/{id}:
  *   get:
- *     summary: Get a car by ID
- *     tags: [Car]
+ *     summary: Get an order by ID
+ *     tags: [Order]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The car ID
+ *         description: Order ID
  *     responses:
  *       200:
- *         description: The car info
+ *         description: Order info
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Car'
+ *               $ref: '#/components/schemas/Order'
  *       404:
- *         description: Car not found
+ *         description: Order not found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-carRouter.get("/:id", carService.getCarById);
+orderRouter.get("/:id", isAuth, orderService.getOrderById);
 
 /**
  * @swagger
- * /car:
+ * /order/{status}:
+ *   get:
+ *     summary: Get an order by status
+ *     tags: [Order]
+ *     parameters:
+ *       - in: path
+ *         name: status
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Order status
+ *     responses:
+ *       200:
+ *         description: Orders info
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: Order not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
+orderRouter.get("/:status", isAuth, orderService.getOrdersByStatus);
+
+/**
+ * @swagger
+ * /order:
  *   post:
- *     summary: Create a new car
- *     tags: [Car]
+ *     summary: Creates a new order
+ *     tags: [Order]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Car'
+ *             $ref: '#/components/schemas/Order'
  *     responses:
  *       201:
- *         description: The car was created
+ *         description: Order was created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Car'
+ *               $ref: '#/components/schemas/Order'
  *       400:
  *         description: Missing parameters or validation error
  *         content:
@@ -108,63 +138,63 @@ carRouter.get("/:id", carService.getCarById);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-carRouter.post("/", carService.createCar);
+orderRouter.post("/", isAuth, orderService.createOrder);
 
 /**
  * @swagger
- * /car/{id}:
+ * /order/{id}:
  *   delete:
- *     summary: Delete a car by ID
- *     tags: [Car]
+ *     summary: Delete an order by ID
+ *     tags: [Order]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The car ID
+ *         description: Order ID
  *     responses:
  *       200:
- *         description: The car was successfully deleted
+ *         description: Order was successfully deleted
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Car'
+ *               $ref: '#/components/schemas/Order'
  *       404:
- *         description: The car was not found
+ *         description: Order not found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-carRouter.delete("/:id", carService.deleteCar);
+orderRouter.delete("/:id", orderService.deleteOrder);
 
 /**
  * @swagger
- * /car/{id}:
+ * /order/{id}:
  *   put:
- *     summary: Update a car by ID
- *     tags: [Car]
+ *     summary: Update an order by ID
+ *     tags: [Order]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The car ID
+ *         description: Order ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Car'
+ *             $ref: '#/components/schemas/Order'
  *     responses:
  *       200:
- *         description: The car was successfully updated
+ *         description: Order was successfully updated
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Car'
+ *               $ref: '#/components/schemas/Order'
  *       400:
  *         description: Some parameters are missing or invalid
  *         content:
@@ -172,10 +202,10 @@ carRouter.delete("/:id", carService.deleteCar);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  *       404:
- *         description: The car was not found
+ *         description: Order not found
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-carRouter.put("/:id", carService.updateCar);
+orderRouter.put("/:id", orderService.updateOrder);
