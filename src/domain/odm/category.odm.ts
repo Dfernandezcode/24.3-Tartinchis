@@ -1,4 +1,4 @@
-import { Category, ICategory } from "../entities/category";
+import { Category, ICategory } from "../entities/category-entity";
 import { Document } from "mongoose";
 
 const getAllCategory = async (page: number, limit: number): Promise<Document<ICategory>[]> => {
