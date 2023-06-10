@@ -24,7 +24,7 @@ const Schema = mongoose.Schema;
 
 export interface ICategory {
   name: string;
-  cakes: ObjectId;
+  cakes: Array<ObjectId>;
   description: string;
 }
 
