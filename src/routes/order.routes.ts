@@ -14,7 +14,7 @@ export const orderRouter = express.Router();
  * @swagger
  * /order:
  *   get:
- *     summary: Lists all the orders
+ *     summary: Lists all the orders.
  *     tags: [Order]
  *     parameters:
  *       - in: query
