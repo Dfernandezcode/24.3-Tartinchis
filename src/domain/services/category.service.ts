@@ -29,6 +29,7 @@ const getCategoryById = async (req: Request, res: Response, next: NextFunction):
   try {
     const id = req.params.id;
     const category = await categoryOdm.getCategoryById(id);
+    console.log(category, id)
     if (category) {
       res.json(category);
     } else {

@@ -5,6 +5,7 @@ import express, { type NextFunction, type Response, type Request, type ErrorRequ
 import { mongoConnect } from "../domain/repositories/mongo-repository";
 import { userRouter } from "./user.routes";
 import { orderRouter } from "./order.routes";
+import { categoryRouter } from "./category.routes";
 
 export const configureRoutes = (app: any): any => {
   // Swagger
